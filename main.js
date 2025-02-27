@@ -2,6 +2,8 @@ money = 0;
 click_money = 1;
 afk_money = 0;
 upgradeCost = [10, 100];
+cUpgradeCost = [10, 100];
+scalingUpg=[10,20]
 
 function plusplus(){
     money += click_money
@@ -9,7 +11,7 @@ function plusplus(){
 }
 
 function AFKmoney(){
-    money += afk_money
+    money += afk_money / 10
     document.getElementById("cookie").textContent = "máš peněz: "+ parseInt(money)
 }
 
@@ -17,26 +19,57 @@ function upgrade(upgType){
     buyable = false
     howmuchplus = 0
     index = null
-    if (upgType == "1"){
-        if (money >= upgradeCost[0]){
-            buyable = true
-            howmuchplus = 1
-            index = 0
-        }
+    if (upgType == "1" & money >= upgradeCost[0]){
+        buyable = true
+        howmuchplus = 1
+        index = 0
     }
-    if (upgType == "2"){
-        if (money >= upgradeCost[1]){
-            buyable = true
-            howmuchplus = 2
-            index = 1
-        }
+    if (upgType == "2" & money >= upgradeCost[1]){
+        buyable = true
+        howmuchplus = 4
+        index = 1
     }
     if (buyable){
-    money -= upgradeCost[index]
-    upgradeCost[index] += upgradeCost[index]/12.6
-    afk_money += howmuchplus
-    document.getElementById("cookie").textContent = "máš peněz: "+ parseInt(money)
+        scalingUpg[index] -= 0.09999
+        money -= upgradeCost[index]
+        upgradeCost[index] += upgradeCost[index]/scalingUpg[index]
+        afk_money += howmuchplus
+        document.getElementById("MPS").textContent= "MPS: " + parseInt(afk_money)
+        document.getElementById("Upg1").textContent= "upgrade 1: " + parseInt(upgradeCost[0])
+        document.getElementById("Upg2").textContent= "upgrade 2: " + parseInt(upgradeCost[1])
     }
 }
- 
-setInterval(() => AFKmoney(), 1000)
+
+function clickUpg(upgType){
+    buyable = false
+    howmuchplus = 0
+    index = null
+    if (upgType == "1" & money >= cUpgradeCost[0]){
+        buyable = true
+        howmuchplus = 1
+        index = 0
+    }
+    if (upgType == "2" & money >= cUpgradeCost[1]){
+        buyable = true
+        howmuchplus = 4
+        index = 1
+    }
+    if (buyable){
+        money -= upgradeCost[index]
+        upgradeCost[index] += upgradeCost[index]/scalingUpg[index]
+        click_money += howmuchplus
+        document.getElementById("CPS").textContent="CPS: " + parseInt(click_money)
+        document.getElementById("clickUpg1").textContent= "clickUpg1:  " + parseInt(upgradeCost[0])
+        document.getElementById("clickUpg2").textContent= "clickUpg2:  " + parseInt(upgradeCost[1])
+    }
+
+}
+
+setInterval(() => AFKmoney(), 100)
+document.getElementById("cookie").textContent = "máš peněz: "+ parseInt(money)
+document.getElementById("CPS").textContent="CPS: " + parseInt(click_money)
+document.getElementById("MPS").textContent= "MPS: " + parseInt(afk_money)
+document.getElementById("Upg1").textContent= "upgrade 1: " + parseInt(upgradeCost[0])
+document.getElementById("Upg2").textContent= "upgrade 2: " + parseInt(upgradeCost[1])
+document.getElementById("clickUpg1").textContent= "clickUpg1:  " + parseInt(upgradeCost[0])
+document.getElementById("clickUpg2").textContent= "clickUpg2:  " + parseInt(upgradeCost[1])
