@@ -9,12 +9,14 @@ function plusplus(){
     money += click_money
     document.getElementById("cookie").textContent = "máš peněz: "+ parseInt(money)
 }
-
 function AFKmoney(){
     money += afk_money / 10
     document.getElementById("cookie").textContent = "máš peněz: "+ parseInt(money)
 }
-
+function boosterM(){
+    money += afk_money *10
+    document.getElementById("cookie").textContent = "máš peněz: "+ parseInt(money)
+}
 function upgrade(upgType){
     buyable = false
     howmuchplus = 0
@@ -39,7 +41,6 @@ function upgrade(upgType){
         document.getElementById("Upg2").textContent= "upgrade 2: " + parseInt(upgradeCost[1])
     }
 }
-
 function clickUpg(upgType){
     buyable = false
     howmuchplus = 0
@@ -55,8 +56,8 @@ function clickUpg(upgType){
         index = 1
     }
     if (buyable){
-        money -= upgradeCost[index]
-        upgradeCost[index] += upgradeCost[index]/scalingUpg[index]
+        money -= cUpgradeCost[index]
+        cUpgradeCost[index] += cUpgradeCost[index]/cUpgradeCost[index]
         click_money += howmuchplus
         document.getElementById("CPS").textContent="CPS: " + parseInt(click_money)
         document.getElementById("clickUpg1").textContent= "clickUpg1:  " + parseInt(upgradeCost[0])
@@ -64,8 +65,8 @@ function clickUpg(upgType){
     }
 
 }
-
 setInterval(() => AFKmoney(), 100)
+setInterval(()=> boosterM(),1000)
 document.getElementById("cookie").textContent = "máš peněz: "+ parseInt(money)
 document.getElementById("CPS").textContent="CPS: " + parseInt(click_money)
 document.getElementById("MPS").textContent= "MPS: " + parseInt(afk_money)
@@ -73,3 +74,4 @@ document.getElementById("Upg1").textContent= "upgrade 1: " + parseInt(upgradeCos
 document.getElementById("Upg2").textContent= "upgrade 2: " + parseInt(upgradeCost[1])
 document.getElementById("clickUpg1").textContent= "clickUpg1:  " + parseInt(upgradeCost[0])
 document.getElementById("clickUpg2").textContent= "clickUpg2:  " + parseInt(upgradeCost[1])
+//udělat booster na který když kliknu tak znásobí CPS *10 a MPS třeba a s cooldownem 1min a zobrazí se random na obrazovce
