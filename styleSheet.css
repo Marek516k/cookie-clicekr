@@ -77,4 +77,6 @@ button:active {
     left: 50%;
     transform: translate(-50%, -50%); /* Center the button initially */
     cursor: pointer;
+    padding: 10px 10px;
+    font-size: 16px;
 }
