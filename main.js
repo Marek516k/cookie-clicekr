@@ -117,3 +117,4 @@ draw()
 setInterval(() => AFKmoney(), 100)
 setInterval(()=> boosterM(),1000)
 setInterval(moveButton, 6000);  // Moves the button every 10 seconds
+
