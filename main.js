@@ -9,7 +9,8 @@ let boosterActive = false; // To track whether the booster is active
 let boosterCooldown = false; // To track the cooldown state
 let interval; // To store the interval for moving the button
 const button = document.getElementById('randomButton');
-let pocetCUpg
+var pocetCUpg = [0,0]
+var upgAFKmaking = [1,4]
 
 function draw() {
     document.getElementById("cookie").textContent = "Money: " + parseInt(money);
@@ -19,11 +20,20 @@ function draw() {
     document.getElementById("Upg2").textContent = "upgrade 2: " + parseInt(upgradeCost[1]);
     document.getElementById("clickUpg1").textContent = "clickUpg1:  " + parseInt(cUpgradeCost[0]);
     document.getElementById("clickUpg2").textContent = "clickUpg2:  " + parseInt(cUpgradeCost[1]);
+    document.getElementById("ID").textContent = pocetCUpg;
 }
 
 function plusplus() {
     money += click_money;
     draw();
+}
+
+function calculateMPS(){
+    let moneyAFK = 0;
+    for (let i = 0; i < length(pocetCUpg); i++){
+        moneyAFK += pocetCUpg[i] * upgAFKmaking[i];
+    }
+    return moneyAFK;
 }
 
 function AFKmoney() {
@@ -38,25 +48,23 @@ function AFKmoney() {
 
 function upgrade(upgType) {
     let buyable = false;
-    let howmuchplus = 0;
     let index = null;
 
     if (upgType == "1" && money >= upgradeCost[0]) {
         buyable = true;
-        howmuchplus = 1;
         index = 0;
     }
 
     if (upgType == "2" && money >= upgradeCost[1]) {
         buyable = true;
-        howmuchplus = 4;
         index = 1;
     }
     if (buyable) {
         scalingUpg[index] -= 0.09999;
         money -= upgradeCost[index];
         upgradeCost[index] += upgradeCost[index] / scalingUpg[index];
-        afk_money += howmuchplus;
+        afk_money += upgAFKmaking[index];
+        pocetCUpg[index]++;
         draw();
     }
 }
