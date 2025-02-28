@@ -1,31 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        body {
-            position: relative;
-            height: 100vh;
-            overflow: hidden;
-        }
-        #randomButton {
-            position: absolute;
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-    </style>
+    <link rel="styleSheet" href="styleSheet.css">
 </head>
 <body>
-    <h2 id="cookie"> máš peněz: 0 </h2>
-    <h3 id="MPS"> MPS: 0 </h3>
-    <h3 id="CPS">CPS: 0</h3>
-    <button onclick="plusplus()"> button </button>
-    <button onclick="upgrade('1')" id="Upg1"> upgrade 1 </button>
-    <button onclick="upgrade('2')" id="Upg2"> upgrade 2 </button>
-    <button onclick="clickUpg('1')" id="clickUpg1"> click upgrade 1 </button>
-    <button onclick="clickUpg('2')" id="clickUpg2"> click upgrade 2 </button>
+    <div class="container"> 
+        <h2 id="cookie"> Money: 0 </h2>
+        <p id="MPS"> MPS: 0 </p>
+        <p id="MPC"> MPC: 0</p>
+        <div class="buttons">
+            <button onclick="plusplus()"> button </button>
+            <button onclick="upgrade('1')" id="Upg1"> upgrade 1 </button>
+            <button onclick="upgrade('2')" id="Upg2"> upgrade 2 </button>
+            <button onclick="clickUpg('1')" id="clickUpg1"> click upgrade 1 </button>
+            <button onclick="clickUpg('2')" id="clickUpg2"> click upgrade 2 </button>
+        </div>
+    </div>
     <button id="randomButton">Click Me</button>
     <script src="main.js"></script>
 </body>
