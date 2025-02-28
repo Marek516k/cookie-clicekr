@@ -11,8 +11,8 @@ const button = document.getElementById('randomButton');
 
 function draw(){
     document.getElementById("cookie").textContent = "Money: "+ parseInt(money)
-    document.getElementById("MPS").textContent="CPS: " + parseInt(click_money)
-    document.getElementById("MPC").textContent= "MPS: " + parseInt(afk_money)
+    document.getElementById("MPC").textContent="MPC: " + parseInt(click_money)
+    document.getElementById("MPS").textContent= "MPS: " + parseInt(afk_money)
     document.getElementById("Upg1").textContent= "upgrade 1: " + parseInt(upgradeCost[0])
     document.getElementById("Upg2").textContent= "upgrade 2: " + parseInt(upgradeCost[1])
     document.getElementById("clickUpg1").textContent= "clickUpg1:  " + parseInt(cUpgradeCost[0])
@@ -79,7 +79,7 @@ function clickUpg(upgType) {
         draw()
 }
 // Function to randomly move the button
-function moveButton() {
+function moveButton(){
     const maxWidth = window.innerWidth - button.clientWidth;
     const maxHeight = window.innerHeight - button.clientHeight;
     const randomX = Math.floor(Math.random() * maxWidth);
@@ -89,32 +89,29 @@ function moveButton() {
 }
 button.addEventListener("click", function() {
     if (boosterCooldown) return; // If cooldown is active, ignore the click
+        boosterActive = true; // Activate booster
+        money += afk_money * 10; // Multiply MPS by 10
+        click_money *= 10; // Multiply CPS by 10
+        document.getElementById("MPC").textContent = "MPC: " + parseInt(click_money);
+        document.getElementById("MPS").textContent = "MPS: " + parseInt(afk_money * 10); // Update MPS display
 
-    boosterActive = true; // Activate booster
-    money += afk_money * 10; // Multiply MPS by 10
-    click_money *= 10; // Multiply CPS by 10
-    document.getElementById("CPS").textContent = "CPS: " + parseInt(click_money);
-    document.getElementById("MPS").textContent = "MPS: " + parseInt(afk_money * 10); // Update MPS display
-
-    // Hide the button and reset cooldown
-    button.style.display = "none";
-    boosterCooldown = true;
-
+        // Hide the button and reset cooldown
+        button.style.display = "none";
+        boosterCooldown = true;
     // After 1 minute (60000 ms), reset the booster and the button
-    setTimeout(() => {
-        boosterActive = false; // Deactivate booster
-        click_money /= 10; // Reset CPS to normal
-        afk_money /= 10; // Reset MPS to normal
-        document.getElementById("CPS").textContent = "CPS: " + parseInt(click_money);
-        document.getElementById("MPS").textContent = "MPS: " + parseInt(afk_money);
+        setTimeout(() => {
+            boosterActive = false; // Deactivate booster
+            click_money /= 10; // Reset CPS to normal
+            afk_money /= 10; // Reset MPS to normal
+            document.getElementById("MPC").textContent = "MPC: " + parseInt(click_money);
+            document.getElementById("MPS").textContent = "MPS: " + parseInt(afk_money);
 
-        // Show the button again
-        button.style.display = "inline-block";
-        boosterCooldown = false; // Reset the cooldown state
-    }, 6000); // 1-minute cooldown
-});}
+            // Show the button again
+            button.style.display = "inline-block";
+            boosterCooldown = false; // Reset the cooldown state
+        }, 6000); // 1-minute cooldown
+    });}
 draw()
 setInterval(() => AFKmoney(), 100)
 setInterval(()=> boosterM(),1000)
-setInterval(moveButton, 6000);  // Moves the button every 10 seconds
-
+setInterval(moveButton(), 6000);  // Moves the button every 10 seconds
