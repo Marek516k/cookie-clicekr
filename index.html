@@ -1,13 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="styleSheet" href="styleSheet.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<link rel="styleSheet" href="styleSheet.css">
+<style>
+    #randomButton {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* Center the button initially */
+        cursor: pointer;
+    }
+</style>
 </head>
 <body>
+    <button id="randomButton">Click Me</button>
     <div class="container"> 
         <h2 id="cookie"> Money: 0 </h2>
         <p id="MPS"> MPS: 0 </p>
@@ -20,7 +29,6 @@
             <button onclick="clickUpg('2')" id="clickUpg2"> click upgrade 2 </button>
         </div>
     </div>
-    <button id="randomButton">Click Me</button>
     <script src="main.js"></script>
 </body>
 </html>
