@@ -49,6 +49,7 @@ function AFKmoney() {
 function upgrade(upgType) {
     let buyable = false;
     let index = null;
+    let pocetUpg=0;
 
     if (upgType == "1" && money >= upgradeCost[0]) {
         buyable = true;
@@ -73,6 +74,7 @@ function clickUpg(upgType) {
     let buyable = false;
     let howmuchplus = 0;
     let index = null;
+    let pocetCUpg=0;
 
     if (upgType == "1" && money >= cUpgradeCost[0]) {
         buyable = true;
@@ -89,6 +91,7 @@ function clickUpg(upgType) {
         CscalingUpg[index]-= 0.09999;
         money -= cUpgradeCost[index];
         cUpgradeCost[index] += cUpgradeCost[index] / CscalingUpg[index];
+        pocetCUpg+=1
         click_money += howmuchplus;
         draw();
     }
@@ -118,6 +121,7 @@ button.addEventListener("click", function () {
     setTimeout(() => {
         boosterActive = false; // Deactivate booster
         // Show the button again
+        afk_money=
         button.style.display = "inline-block";
         boosterCooldown = false; // Reset the cooldown state
     }, 6000); // 6-second cooldown
