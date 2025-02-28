@@ -118,9 +118,7 @@ function upgrade(upgType) {
         money -= upgradeCost[index];
         upgradeCost[index] += upgradeCost[index] / scalingUpg[index];
         afk_money += howmuchplus;
-        document.getElementById("MPS").textContent = "MPS: " + parseInt(afk_money);
-        document.getElementById("Upg1").textContent = "upgrade 1: " + parseInt(upgradeCost[0]);
-        document.getElementById("Upg2").textContent = "upgrade 2: " + parseInt(upgradeCost[1]);
+        draw()
     }
 }
 setInterval(() => AFKmoney(), 100)
@@ -147,7 +145,7 @@ function clickUpg(upgType) {
 
     if (buyable) {
         money -= cUpgradeCost[index];
-        cUpgradeCost[index] += cUpgradeCost[index] / cUpgradeCost[index];
+        cUpgradeCost[index] += cUpgradeCost[index] / 12;
         click_money += howmuchplus;
         draw()
     }
