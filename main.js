@@ -20,7 +20,6 @@ function draw() {
     document.getElementById("Upg2").textContent = "upgrade 2: " + parseInt(upgradeCost[1]);
     document.getElementById("clickUpg1").textContent = "clickUpg1:  " + parseInt(cUpgradeCost[0]);
     document.getElementById("clickUpg2").textContent = "clickUpg2:  " + parseInt(cUpgradeCost[1]);
-    document.getElementById("ID").textContent = pocetCUpg;
 }
 
 function plusplus() {
