@@ -8,6 +8,8 @@ body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
 }
 
 .container{
@@ -69,3 +71,8 @@ button:active {
     background-color: #947b2f;
 }
 
+#randomButton {
+    position: absolute;
+    padding: 10px 20px;
+    font-size: 16px;
+}
