@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #randomButton {
+            position: absolute;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
     <h2 id="cookie"> máš peněz: 0 </h2>
@@ -14,6 +26,7 @@
     <button onclick="upgrade('2')" id="Upg2"> upgrade 2 </button>
     <button onclick="clickUpg('1')" id="clickUpg1"> click upgrade 1 </button>
     <button onclick="clickUpg('2')" id="clickUpg2"> click upgrade 2 </button>
+    <button id="randomButton">Click Me</button>
     <script src="main.js"></script>
 </body>
 </html>
