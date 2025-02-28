@@ -5,17 +5,27 @@ upgradeCost = [10, 100];
 cUpgradeCost = [10, 100];
 scalingUpg=[10,20]
 
+function draw(){
+    document.getElementById("cookie").textContent = "Money: "+ parseInt(money)
+    document.getElementById("MPS").textContent="CPS: " + parseInt(click_money)
+    document.getElementById("MPC").textContent= "MPS: " + parseInt(afk_money)
+    document.getElementById("Upg1").textContent= "upgrade 1: " + parseInt(upgradeCost[0])
+    document.getElementById("Upg2").textContent= "upgrade 2: " + parseInt(upgradeCost[1])
+    document.getElementById("clickUpg1").textContent= "clickUpg1:  " + parseInt(cUpgradeCost[0])
+    document.getElementById("clickUpg2").textContent= "clickUpg2:  " + parseInt(cUpgradeCost[1])
+}
+
 function plusplus(){
     money += click_money
-    document.getElementById("cookie").textContent = "máš peněz: "+ parseInt(money)
+    draw()
 }
 function AFKmoney(){
     money += afk_money / 10
-    document.getElementById("cookie").textContent = "máš peněz: "+ parseInt(money)
+    draw()
 }
 function boosterM(){
     money += afk_money *10
-    document.getElementById("cookie").textContent = "máš peněz: "+ parseInt(money)
+    draw()
 }
 function upgrade(upgType){
     buyable = false
@@ -36,11 +46,10 @@ function upgrade(upgType){
         money -= upgradeCost[index]
         upgradeCost[index] += upgradeCost[index]/scalingUpg[index]
         afk_money += howmuchplus
-        document.getElementById("MPS").textContent= "MPS: " + parseInt(afk_money)
-        document.getElementById("Upg1").textContent= "upgrade 1: " + parseInt(upgradeCost[0])
-        document.getElementById("Upg2").textContent= "upgrade 2: " + parseInt(upgradeCost[1])
+        draw()
     }
 }
+
 function clickUpg(upgType){
     buyable = false
     howmuchplus = 0
@@ -59,19 +68,11 @@ function clickUpg(upgType){
         money -= cUpgradeCost[index]
         cUpgradeCost[index] += cUpgradeCost[index]/cUpgradeCost[index]
         click_money += howmuchplus
-        document.getElementById("CPS").textContent="CPS: " + parseInt(click_money)
-        document.getElementById("clickUpg1").textContent= "clickUpg1:  " + parseInt(upgradeCost[0])
-        document.getElementById("clickUpg2").textContent= "clickUpg2:  " + parseInt(upgradeCost[1])
+        draw()
     }
 
 }
 setInterval(() => AFKmoney(), 100)
 setInterval(()=> boosterM(),1000)
-document.getElementById("cookie").textContent = "máš peněz: "+ parseInt(money)
-document.getElementById("CPS").textContent="CPS: " + parseInt(click_money)
-document.getElementById("MPS").textContent= "MPS: " + parseInt(afk_money)
-document.getElementById("Upg1").textContent= "upgrade 1: " + parseInt(upgradeCost[0])
-document.getElementById("Upg2").textContent= "upgrade 2: " + parseInt(upgradeCost[1])
-document.getElementById("clickUpg1").textContent= "clickUpg1:  " + parseInt(upgradeCost[0])
-document.getElementById("clickUpg2").textContent= "clickUpg2:  " + parseInt(upgradeCost[1])
+draw()
 //udělat booster na který když kliknu tak znásobí CPS *10 a MPS třeba a s cooldownem 1min a zobrazí se random na obrazovce
