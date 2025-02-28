@@ -4,6 +4,10 @@ let afk_money = 0;
 let upgradeCost = [10, 100];
 let cUpgradeCost = [10, 100];
 let scalingUpg = [10, 20];
+let boosterActive = false; // To track whether the booster is active
+let boosterCooldown = false; // To track the cooldown state
+let interval; // To store the interval for moving the button
+const button = document.getElementById('randomButton');
 
 function draw(){
     document.getElementById("cookie").textContent = "Money: "+ parseInt(money)
@@ -19,15 +23,15 @@ function plusplus(){
     money += click_money
     draw()
 }
-function AFKmoney(){
-    money += afk_money / 10
+function AFKmoney() {
+    if (boosterActive) {
+        // If the booster is active, multiply AFK money by 10
+        money += afk_money * 10 ;
+    } else {
+        money += afk_money / 10;
+    }
     draw()
 }
-function boosterM(){
-    money += afk_money *10
-    draw()
-}
-
 function upgrade(upgType) {
     let buyable = false;
     let howmuchplus = 0;
@@ -52,8 +56,6 @@ function upgrade(upgType) {
         draw()
     }
 }
-
-
 function clickUpg(upgType) {
     let buyable = false;
     let howmuchplus = 0;
@@ -75,84 +77,7 @@ function clickUpg(upgType) {
         cUpgradeCost[index] += cUpgradeCost[index]/cUpgradeCost[index]
         click_money += howmuchplus
         draw()
-let boosterActive = false; // To track whether the booster is active
-let boosterCooldown = false; // To track the cooldown state
-let interval; // To store the interval for moving the button
-
-// Update money with click_money
-function plusplus() {
-    money += click_money;
-    document.getElementById("cookie").textContent = "máš peněz: " + parseInt(money);
 }
-
-// Update AFK money
-function AFKmoney() {
-    if (boosterActive) {
-        // If the booster is active, multiply AFK money by 10
-        money += afk_money * 10 ;
-    } else {
-        money += afk_money / 10;
-    }
-    document.getElementById("cookie").textContent = "máš peněz: " + parseInt(money);
-}
-
-function upgrade(upgType) {
-    let buyable = false;
-    let howmuchplus = 0;
-    let index = null;
-
-    if (upgType == "1" && money >= upgradeCost[0]) {
-        buyable = true;
-        howmuchplus = 1;
-        index = 0;
-    }
-
-    if (upgType == "2" && money >= upgradeCost[1]) {
-        buyable = true;
-        howmuchplus = 4;
-        index = 1;
-    }
-
-    if (buyable) {
-        scalingUpg[index] -= 0.09999;
-        money -= upgradeCost[index];
-        upgradeCost[index] += upgradeCost[index] / scalingUpg[index];
-        afk_money += howmuchplus;
-        draw()
-    }
-}
-setInterval(() => AFKmoney(), 100)
-setInterval(()=> boosterM(),1000)
-draw()
-//udělat booster na který když kliknu tak znásobí CPS *10 a MPS třeba a s cooldownem 1min a zobrazí se random na obrazovce
-
-function clickUpg(upgType) {
-    let buyable = false;
-    let howmuchplus = 0;
-    let index = null;
-
-    if (upgType == "1" && money >= cUpgradeCost[0]) {
-        buyable = true;
-        howmuchplus = 1;
-        index = 0;
-    }
-
-    if (upgType == "2" && money >= cUpgradeCost[1]) {
-        buyable = true;
-        howmuchplus = 4;
-        index = 1;
-    }
-
-    if (buyable) {
-        money -= cUpgradeCost[index];
-        cUpgradeCost[index] += cUpgradeCost[index] / 12;
-        click_money += howmuchplus;
-        draw()
-    }
-}
-
-const button = document.getElementById('randomButton');
-
 // Function to randomly move the button
 function moveButton() {
     const maxWidth = window.innerWidth - button.clientWidth;
@@ -162,20 +87,6 @@ function moveButton() {
     button.style.left = `${randomX}px`;
     button.style.top = `${randomY}px`;
 }
-
-setInterval(moveButton, 6000);  // Moves the button every 10 seconds
-setInterval(() => AFKmoney(), 100);  // Updates AFK money every 100 ms
-
-// Function that handles the booster activation
-function boosterM() {
-    if (boosterActive) {
-        // Apply booster effect by multiplying AFK money by 10
-        money += afk_money * 10 / 10;
-        document.getElementById("cookie").textContent = "máš peněz: " + parseInt(money);
-    }
-}
-
-// Button click event listener
 button.addEventListener("click", function() {
     if (boosterCooldown) return; // If cooldown is active, ignore the click
 
@@ -201,4 +112,9 @@ button.addEventListener("click", function() {
         button.style.display = "inline-block";
         boosterCooldown = false; // Reset the cooldown state
     }, 6000); // 1-minute cooldown
-});}}
+});}
+draw()
+setInterval(() => AFKmoney(), 100)
+setInterval(()=> boosterM(),1000)
+setInterval(moveButton, 6000);  // Moves the button every 10 seconds
+
