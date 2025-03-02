@@ -1,3 +1,4 @@
+
 let money = 0;
 let click_money = 1;
 let afk_money = 0;
@@ -9,8 +10,10 @@ let boosterActive = false; // To track whether the booster is active
 let boosterCooldown = false; // To track the cooldown state
 let interval; // To store the interval for moving the button
 const button = document.getElementById('randomButton');
-let pocetUpg=0;
-let pocetCUpg=0;
+var pocetUpg = [0,0]
+var upgAFKmaking = [1,4]
+var pocetCUpg = [0,0]
+var upgClick = [1,4]
 
 function draw() {
     document.getElementById("cookie").textContent = "Money: " + parseInt(money);
@@ -27,6 +30,22 @@ function plusplus() {
     draw();
 }
 
+function calculateMPS(){
+    let moneyAFK = 0;
+    for (let i = 0; i < pocetUpg.length; i++){
+        moneyAFK += pocetUpg[i] * upgAFKmaking[i];
+    }
+    return moneyAFK;
+}
+
+function calculateMPC(){
+    let moneyCLICK = 0;
+    for (let i = 0; i < pocetCUpg.length; i++){
+        moneyCLICK += pocetUpg[i] * upgClick[i];
+    }
+    return moneyCLICK;
+}
+
 function AFKmoney() {
     if (boosterActive) {
         // If the booster is active, multiply AFK money by 10
@@ -39,27 +58,24 @@ function AFKmoney() {
 
 function upgrade(upgType) {
     let buyable = false;
-    let howmuchplus = 0;
     let index = null;
     let pocetUpg=0;
 
     if (upgType == "1" && money >= upgradeCost[0]) {
         buyable = true;
-        howmuchplus = 1;
         index = 0;
     }
 
     if (upgType == "2" && money >= upgradeCost[1]) {
         buyable = true;
-        howmuchplus = 4;
         index = 1;
     }
     if (buyable) {
         scalingUpg[index] -= 0.09999;
         money -= upgradeCost[index];
         upgradeCost[index] += upgradeCost[index] / scalingUpg[index];
-        pocetUpg+=1
-        afk_money += howmuchplus;
+        pocetUpg[index]++;
+        afk_money = calculateMPS();
         draw();
     }
 }
@@ -84,8 +100,8 @@ function clickUpg(upgType) {
     if (buyable) {
         CscalingUpg[index]-= 0.09999;
         money -= cUpgradeCost[index];
-        cUpgradeCost[index] += cUpgradeCost[index] / CscalingUpg[index];
-        pocetCUpg+=1
+        pocetCUpg[index]++;
+        click_money = calculateMPC();
         click_money += howmuchplus;
         draw();
     }
@@ -100,7 +116,10 @@ function moveButton() {
     button.style.left = `${randomX}px`;
     button.style.top = `${randomY}px`;
 }
+
+draw()
 setInterval(moveButton, 6000);
+setInterval(AFKmoney, 100)
 
 button.addEventListener("click", function () {
     if (boosterCooldown) return; // If cooldown is active, ignore the click
@@ -114,12 +133,12 @@ button.addEventListener("click", function () {
     // After 6 seconds (6000 ms), reset the booster and the button
     setTimeout(() => {
         boosterActive = false; // Deactivate booster
-        // Show the button again
-        afk_money=
+        boosterCooldown = false;  // Reset the cooldown state
         button.style.display = "inline-block";
-        boosterCooldown = false; // Reset the cooldown state
+        // Show the button again
+        afk_money+=moneyAFK
+        click_money+=moneyCLICK
+        draw()
     }, 6000); // 6-second cooldown
 });
-
-draw();
-setInterval(() => AFKmoney(), 100);
+//přidat save, exit , restart button
