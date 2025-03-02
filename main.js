@@ -30,8 +30,10 @@ function deleteAllCookies() {
 }
 
 function resetGame() {
-    deleteAllCookies();
-
+    let otazka1=prompt("Do you seriously wanna reset your progress type (ano) if so").toLowerCase();
+    if (otazka1==="ano"){
+        deleteAllCookies();
+    }
     money = 0;
     click_money = 1;
     afk_money = 0;
