@@ -13,8 +13,42 @@ let upgAFKmaking = [1, 4];
 let pocetCUpg = [0, 0];
 let upgClick = [1, 4];
 
+function deleteCookie(name) {
+    document.cookie = `money=${money}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+    document.cookie = `click_money=${click_money}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+    document.cookie = `afk_money=${afk_money}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+    document.cookie = `pocetUpg=${JSON.stringify(pocetUpg)}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+    document.cookie = `pocetCUpg=${JSON.stringify(pocetCUpg)}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+}
+
+function deleteAllCookies() {
+    let cookies = document.cookie.split("; ");
+    for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].split("=")[0];
+        deleteCookie(cookie);
+    }
+}
+
+function resetGame() {
+    deleteAllCookies();
+
+    money = 0;
+    click_money = 1;
+    afk_money = 0;
+    pocetUpg = [0, 0];
+    pocetCUpg = [0, 0];
+
+    draw();
+
+    alert("Game data has been reset!");
+}
+
 function exitgame(){
-    window.close();
+    let otazka=prompt("Do you seriously wanna exit the game? napiš (ano) pokud chceš odejít").toLowerCase();
+    if (otazka==="ano"){
+        alert("this window will now close")
+        window.close();
+    }
 }
 function savegame(){
     document.cookie = `money=${money}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
@@ -125,7 +159,7 @@ draw();
 setInterval(moveButton, 6000);
 setInterval(AFKmoney, 100);
 setInterval(savegame, 5000);
-
+document.getElementById("Reset").addEventListener("click", resetGame);
 
 button.addEventListener("click", function () {
     if (boosterCooldown) return;
