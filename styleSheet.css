@@ -38,12 +38,11 @@ h2{
 
 button{
     margin-bottom: 15px;
-    background-color: #007bff;
+    background-color: #0f6ed2;
     color: white;
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    
 }
 
 button :hover{

@@ -1,28 +1,58 @@
-
 let money = 0;
 let click_money = 1;
 let afk_money = 0;
 let upgradeCost = [10, 100];
 let cUpgradeCost = [10, 100];
 let scalingUpg = [10, 20];
-let CscalingUpg=[10,20];
-let boosterActive = false; // To track whether the booster is active
-let boosterCooldown = false; // To track the cooldown state
-let interval; // To store the interval for moving the button
+let CscalingUpg = [10, 20];
+let boosterActive = false;
+let boosterCooldown = false;
 const button = document.getElementById('randomButton');
-var pocetUpg = [0,0]
-var upgAFKmaking = [1,4]
-var pocetCUpg = [0,0]
-var upgClick = [1,4]
+let pocetUpg = [0, 0];
+let upgAFKmaking = [1, 4];
+let pocetCUpg = [0, 0];
+let upgClick = [1, 4];
+
+function savegame(){
+    document.cookie = `money=${money}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+    document.cookie = `click_money=${click_money}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+    document.cookie = `afk_money=${afk_money}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+    document.cookie = `pocetUpg=${JSON.stringify(pocetUpg)}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+    document.cookie = `pocetCUpg=${JSON.stringify(pocetCUpg)}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+}
+
+function getCookie(name) {
+    let cookies = document.cookie.split('; ');
+
+    for (let i = 0; i < cookies.length; i++) {
+        let [key, value] = cookies[i].split('=');
+        if (key === name) return decodeURIComponent(value);
+    }
+    return null;
+}
+
+function loadGame() {
+    money = parseFloat(getCookie("money")) || 0;
+    click_money = parseFloat(getCookie("click_money")) || 1;
+    afk_money = parseFloat(getCookie("afk_money")) || 0;
+    
+    let savedPocetUpg = getCookie("pocetUpg");
+    let savedPocetCUpg = getCookie("pocetCUpg");
+
+    pocetUpg = savedPocetUpg ? JSON.parse(savedPocetUpg) : [0, 0];
+    pocetCUpg = savedPocetCUpg ? JSON.parse(savedPocetCUpg) : [0, 0];
+
+    draw();
+}
 
 function draw() {
-    document.getElementById("cookie").textContent = "Money: " + parseInt(money);
+    document.getElementById("cookie").textContent = "COOKIESS!!: " + parseInt(money);
     document.getElementById("MPC").textContent = "MPC: " + parseInt(click_money);
     document.getElementById("MPS").textContent = "MPS: " + parseInt(afk_money);
-    document.getElementById("Upg1").textContent = "upgrade 1: " + parseInt(upgradeCost[0]);
-    document.getElementById("Upg2").textContent = "upgrade 2: " + parseInt(upgradeCost[1]);
-    document.getElementById("clickUpg1").textContent = "clickUpg1:  " + parseInt(cUpgradeCost[0]);
-    document.getElementById("clickUpg2").textContent = "clickUpg2:  " + parseInt(cUpgradeCost[1]);
+    document.getElementById("Upg1").textContent = "Upgrade 1: " + parseInt(upgradeCost[0]);
+    document.getElementById("Upg2").textContent = "Upgrade 2: " + parseInt(upgradeCost[1]);
+    document.getElementById("clickUpg1").textContent = "Click Upgrade 1: " + parseInt(cUpgradeCost[0]);
+    document.getElementById("clickUpg2").textContent = "Click Upgrade 2: " + parseInt(cUpgradeCost[1]);
 }
 
 function plusplus() {
@@ -30,50 +60,34 @@ function plusplus() {
     draw();
 }
 
-function calculateMPS(){
+function calculateMPS() {
     let moneyAFK = 0;
-    for (let i = 0; i < pocetUpg.length; i++){
+    for (let i = 0; i < pocetUpg.length; i++) {
         moneyAFK += pocetUpg[i] * upgAFKmaking[i];
     }
-    return moneyAFK;
+    return boosterActive ? moneyAFK * 10 : moneyAFK;
 }
 
-function calculateMPC(){
-    let moneyCLICK = 0;
-    for (let i = 0; i < pocetCUpg.length; i++){
-        moneyCLICK += pocetUpg[i] * upgClick[i];
+function calculateMPC() {
+    let moneyCLICK = 1;
+    for (let i = 0; i < pocetCUpg.length; i++) {
+        moneyCLICK += pocetCUpg[i] * upgClick[i];
     }
-    return moneyCLICK;
+    return boosterActive ? moneyCLICK * 10 : moneyCLICK;
 }
 
 function AFKmoney() {
-    if (boosterActive) {
-        // If the booster is active, multiply AFK money by 10
-        money += afk_money * 10;
-    } else {
-        money += afk_money / 10;
-    }
+    money += afk_money / 10;
     draw();
 }
 
 function upgrade(upgType) {
-    let buyable = false;
-    let index = null;
-    let pocetUpg=0;
+    let index = parseInt(upgType) - 1;
 
-    if (upgType == "1" && money >= upgradeCost[0]) {
-        buyable = true;
-        index = 0;
-    }
-
-    if (upgType == "2" && money >= upgradeCost[1]) {
-        buyable = true;
-        index = 1;
-    }
-    if (buyable) {
-        scalingUpg[index] -= 0.09999;
+    if (money >= upgradeCost[index]) {
         money -= upgradeCost[index];
         upgradeCost[index] += upgradeCost[index] / scalingUpg[index];
+        scalingUpg[index] -= 0.09999;
         pocetUpg[index]++;
         afk_money = calculateMPS();
         draw();
@@ -81,28 +95,14 @@ function upgrade(upgType) {
 }
 
 function clickUpg(upgType) {
-    let buyable = false;
-    let howmuchplus = 0;
-    let index = null;
-    let pocetCUpg=0;
-
-    if (upgType == "1" && money >= cUpgradeCost[0]) {
-        buyable = true;
-        howmuchplus = 1;
-        index = 0;
-    }
-
-    if (upgType == "2" && money >= cUpgradeCost[1]) {
-        buyable = true;
-        howmuchplus = 4;
-        index = 1;
-    }
-    if (buyable) {
-        CscalingUpg[index]-= 0.09999;
+    let index = parseInt(upgType) - 1;
+    
+    if (money >= cUpgradeCost[index]) {
         money -= cUpgradeCost[index];
+        cUpgradeCost[index] += cUpgradeCost[index] / CscalingUpg[index];
+        CscalingUpg[index] -= 0.09999;
         pocetCUpg[index]++;
         click_money = calculateMPC();
-        click_money += howmuchplus;
         draw();
     }
 }
@@ -116,29 +116,34 @@ function moveButton() {
     button.style.left = `${randomX}px`;
     button.style.top = `${randomY}px`;
 }
-
-draw()
+window.onload = function () {
+    loadGame();
+}
+draw();
 setInterval(moveButton, 6000);
-setInterval(AFKmoney, 100)
+setInterval(AFKmoney, 100);
+setInterval(savegame, 5000);
+
 
 button.addEventListener("click", function () {
-    if (boosterCooldown) return; // If cooldown is active, ignore the click
-    boosterActive = true; // Activate booster
-    // Multiply MPS and CPS during the boost
-    click_money *= 10; // Multiply MPC by 10
-    afk_money*=10; // Multiplay MPS by 10
-    // Hide the button during the cooldown
-    button.style.display = "none";
+    if (boosterCooldown) return;
+    boosterActive = true;
     boosterCooldown = true;
-    // After 6 seconds (6000 ms), reset the booster and the button
+    button.style.display = "none";
+
+    // Apply boost
+    afk_money = calculateMPS(); // Calculate boosted value
+    click_money = calculateMPC(); // Calculate boosted value
+
     setTimeout(() => {
-        boosterActive = false; // Deactivate booster
-        boosterCooldown = false;  // Reset the cooldown state
+        boosterActive = false;
+        boosterCooldown = false;
         button.style.display = "inline-block";
-        // Show the button again
-        afk_money+=moneyAFK
-        click_money+=moneyCLICK
-        draw()
-    }, 6000); // 6-second cooldown
+
+        // Recalculate MPS and MPC with any new upgrades kept
+        afk_money = calculateMPS();
+        click_money = calculateMPC();
+
+        draw();
+    }, 6000);
 });
-//přidat save, exit , restart button
