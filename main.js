@@ -41,7 +41,6 @@ function loadGame() {
 
     pocetUpg = savedPocetUpg ? JSON.parse(savedPocetUpg) : [0, 0];
     pocetCUpg = savedPocetCUpg ? JSON.parse(savedPocetCUpg) : [0, 0];
-
     draw();
 }
 
