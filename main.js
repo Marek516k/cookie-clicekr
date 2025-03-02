@@ -86,12 +86,12 @@ function loadGame() {
 
 function draw() {
     document.getElementById("cookie").textContent = "COOKIESS!!: " + parseInt(money);
-    document.getElementById("MPC").textContent = "MPC: " + parseInt(click_money);
-    document.getElementById("MPS").textContent = "MPS: " + parseInt(afk_money);
-    document.getElementById("Upg1").textContent = "Upgrade 1: " + parseInt(upgradeCost[0]);
-    document.getElementById("Upg2").textContent = "Upgrade 2: " + parseInt(upgradeCost[1]);
-    document.getElementById("clickUpg1").textContent = "Click Upgrade 1: " + parseInt(cUpgradeCost[0]);
-    document.getElementById("clickUpg2").textContent = "Click Upgrade 2: " + parseInt(cUpgradeCost[1]);
+    document.getElementById("MPC").textContent = "CPC: " + parseInt(click_money);
+    document.getElementById("MPS").textContent = "CPS: " + parseInt(afk_money);
+    document.getElementById("Upg1").textContent = "CPS Upgrade 1: " + parseInt(upgradeCost[0]);
+    document.getElementById("Upg2").textContent = "CPS Upgrade 2: " + parseInt(upgradeCost[1]);
+    document.getElementById("clickUpg1").textContent = "CPC Upgrade 1: " + parseInt(cUpgradeCost[0]);
+    document.getElementById("clickUpg2").textContent = "CPC Upgrade 2: " + parseInt(cUpgradeCost[1]);
 }
 
 function plusplus() {
@@ -186,3 +186,4 @@ button.addEventListener("click", function () {
         draw();
     }, 6000);
 });
+// achievementy + více upg a možná byck konečně mohl přidat tu fotku sušenky
