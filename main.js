@@ -58,6 +58,7 @@ function savegame(){
     document.cookie = `afk_money=${afk_money}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
     document.cookie = `pocetUpg=${JSON.stringify(pocetUpg)}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
     document.cookie = `pocetCUpg=${JSON.stringify(pocetCUpg)}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+    alert("game has been saved")
 }
 
 function getCookie(name) {
@@ -160,7 +161,7 @@ window.onload = function () {
 draw();
 setInterval(moveButton, 6000);
 setInterval(AFKmoney, 100);
-setInterval(savegame, 5000);
+setInterval(savegame, 60000);
 document.getElementById("Reset").addEventListener("click", resetGame);
 
 button.addEventListener("click", function () {
