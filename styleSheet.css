@@ -85,6 +85,9 @@ button:active {
     background-color: red;
 }
 
+#Reset:hover, #Save:hover, #Exit:hover{
+    background-color: darkred;
+}
 #randomButton {
     position: fixed;
     top: 50%;

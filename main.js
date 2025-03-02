@@ -13,6 +13,9 @@ let upgAFKmaking = [1, 4];
 let pocetCUpg = [0, 0];
 let upgClick = [1, 4];
 
+function exitgame(){
+    window.close();
+}
 function savegame(){
     document.cookie = `money=${money}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
     document.cookie = `click_money=${click_money}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
