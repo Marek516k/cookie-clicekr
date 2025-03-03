@@ -150,8 +150,8 @@ function showMessage(text) {
     message.style.top = "20px";
     message.style.left = "50%";
     message.style.transform = "translateX(-50%)";
-    message.style.background = "rgba(0, 0, 0, 0.8)";
-    message.style.color = "white";
+    message.style.background = "rgb(241, 234, 234)";
+    message.style.color = "black";
     message.style.padding = "10px 20px";
     message.style.borderRadius = "5px";
     message.style.zIndex = "1000";
