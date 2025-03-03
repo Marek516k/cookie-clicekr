@@ -93,6 +93,7 @@ function draw() {
 
 function plusplus() {
     money += click_money;
+    achievementdetector();
     draw();
 }
 
@@ -156,13 +157,41 @@ function showMessage(text) {
     message.style.borderRadius = "5px";
     message.style.zIndex = "1000";
     message.style.opacity = "1";
-    message.style.transition = "opacity 0.5s ease-out";
+    message.style.transition = "opacity 1s ease-out";
 
     document.body.appendChild(message);
     setTimeout(() => {
         message.style.opacity = "0";
         setTimeout(() => message.remove(), 500);
     }, 2000);
+}
+
+function ulehcenistylu(jmeno, text) {
+    jmeno.innerText = text;
+    jmeno.style.position = "fixed";
+    jmeno.style.top = "20px";
+    jmeno.style.left = "50%";
+    jmeno.style.transform = "translateX(-50%)";
+    jmeno.style.background = "rgba(0, 0, 0, 0.8)";
+    jmeno.style.color = "white";
+    jmeno.style.padding = "10px 20px";
+    jmeno.style.borderRadius = "5px";
+    jmeno.style.zIndex = "1000";
+    jmeno.style.opacity = "1";
+    jmeno.style.transition = "opacity 1s ease-out";
+
+    document.body.appendChild(jmeno);
+    setTimeout(() => {
+        jmeno.style.opacity = "0";
+        setTimeout(() => jmeno.remove(), 500);
+    }, 2000);
+}
+
+function achievementdetector(){
+    if (money>=1000000){
+        let begginer = document.createElement("div");
+        ulehcenistylu(begginer,"Achievement unlocked - Begginer for 1 milion cookies.")
+    }
 }
 
 function moveButton() {
