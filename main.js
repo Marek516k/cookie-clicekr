@@ -39,16 +39,13 @@ function resetGame() {
     afk_money = 0;
     pocetUpg = [0, 0];
     pocetCUpg = [0, 0];
-
+    showMessage("The game has been reset.");
     draw();
-
-    alert("Game data has been reset!");
 }
 
 function exitgame(){
     let otazka=prompt("Do you seriously wanna exit the game? napiš (ano) pokud chceš odejít").toLowerCase();
     if (otazka==="ano"){
-        alert("this window will now close")
         window.close();
     }
 }
@@ -58,7 +55,7 @@ function savegame(){
     document.cookie = `afk_money=${afk_money}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
     document.cookie = `pocetUpg=${JSON.stringify(pocetUpg)}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
     document.cookie = `pocetCUpg=${JSON.stringify(pocetCUpg)}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
-    alert("game has been saved")
+    showMessage("The game has been saved.")
 }
 
 function getCookie(name) {
@@ -146,7 +143,28 @@ function clickUpg(upgType) {
     }
 }
 
-// Function to randomly move the button
+function showMessage(text) {
+    let message = document.createElement("div");
+    message.innerText = text; // Custom message
+    message.style.position = "fixed";
+    message.style.top = "20px";
+    message.style.left = "50%";
+    message.style.transform = "translateX(-50%)";
+    message.style.background = "rgba(0, 0, 0, 0.8)";
+    message.style.color = "white";
+    message.style.padding = "10px 20px";
+    message.style.borderRadius = "5px";
+    message.style.zIndex = "1000";
+    message.style.opacity = "1";
+    message.style.transition = "opacity 0.5s ease-out";
+
+    document.body.appendChild(message);
+    setTimeout(() => {
+        message.style.opacity = "0";
+        setTimeout(() => message.remove(), 500);
+    }, 2000);
+}
+
 function moveButton() {
     const maxWidth = window.innerWidth - button.clientWidth;
     const maxHeight = window.innerHeight - button.clientHeight;
@@ -155,6 +173,7 @@ function moveButton() {
     button.style.left = `${randomX}px`;
     button.style.top = `${randomY}px`;
 }
+
 window.onload = function () {
     loadGame();
 }
@@ -169,21 +188,16 @@ button.addEventListener("click", function () {
     boosterActive = true;
     boosterCooldown = true;
     button.style.display = "none";
-
-    // Apply boost
-    afk_money = calculateMPS(); // Calculate boosted value
-    click_money = calculateMPC(); // Calculate boosted value
+    afk_money = calculateMPS();
+    click_money = calculateMPC();
 
     setTimeout(() => {
         boosterActive = false;
         boosterCooldown = false;
         button.style.display = "inline-block";
-
-        // Recalculate MPS and MPC with any new upgrades kept
         afk_money = calculateMPS();
         click_money = calculateMPC();
-
         draw();
     }, 6000);
 });
-// achievementy + více upg a možná byck konečně mohl přidat tu fotku sušenky
+// achievementy + více upg
