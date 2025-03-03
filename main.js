@@ -189,8 +189,8 @@ function ulehcenistylu(jmeno, text) {
 
 function achievementdetector(){
     if (money>=1000000){
-        let begginer = document.createElement("div");
-        ulehcenistylu(begginer,"Achievement unlocked - Begginer for 1 milion cookies.")
+        let achievement = document.createElement("div");
+        ulehcenistylu(achievement,"Achievement unlocked - Begginer for 1 milion cookies.")
     }
 }
 
