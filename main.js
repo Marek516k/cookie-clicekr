@@ -21,6 +21,10 @@ function deleteCookie(name) {
     document.cookie = `pocetCUpg=${JSON.stringify(pocetCUpg)}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
 }
 
+function deleteCookie(name) {
+    document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+}
+
 function deleteAllCookies() {
     let cookies = document.cookie.split("; ");
     for (let i = 0; i < cookies.length; i++) {
@@ -30,8 +34,8 @@ function deleteAllCookies() {
 }
 
 function resetGame() {
-    let otazka1=prompt("Do you seriously wanna reset your progress type (ano) if so").toLowerCase();
-    if (otazka1==="ano"){
+    let otazka1 = prompt("Do you seriously wanna reset your progress? Type 'ano' if so").toLowerCase();
+    if (otazka1 === "ano") {
         deleteAllCookies();
     }
     money = 0;
@@ -39,6 +43,8 @@ function resetGame() {
     afk_money = 0;
     pocetUpg = [0, 0];
     pocetCUpg = [0, 0];
+    upgradeCost = [10, 100];
+    cUpgradeCost = [10, 100];
     showMessage("The game has been reset.");
     draw();
 }
@@ -49,13 +55,16 @@ function exitgame(){
         window.close();
     }
 }
-function savegame(){
+
+function savegame() {
     document.cookie = `money=${money}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
     document.cookie = `click_money=${click_money}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
     document.cookie = `afk_money=${afk_money}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
     document.cookie = `pocetUpg=${JSON.stringify(pocetUpg)}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
     document.cookie = `pocetCUpg=${JSON.stringify(pocetCUpg)}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
-    showMessage("The game has been saved.")
+    document.cookie = `upgradeCost=${JSON.stringify(upgradeCost)}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+    document.cookie = `cUpgradeCost=${JSON.stringify(cUpgradeCost)}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+    showMessage("The game has been saved.");
 }
 
 function getCookie(name) {
@@ -72,12 +81,17 @@ function loadGame() {
     money = parseFloat(getCookie("money")) || 0;
     click_money = parseFloat(getCookie("click_money")) || 1;
     afk_money = parseFloat(getCookie("afk_money")) || 0;
-    
+
     let savedPocetUpg = getCookie("pocetUpg");
     let savedPocetCUpg = getCookie("pocetCUpg");
+    let savedUpgradeCost = getCookie("upgradeCost");
+    let savedCUpgradeCost = getCookie("cUpgradeCost");
 
     pocetUpg = savedPocetUpg ? JSON.parse(savedPocetUpg) : [0, 0];
     pocetCUpg = savedPocetCUpg ? JSON.parse(savedPocetCUpg) : [0, 0];
+    upgradeCost = savedUpgradeCost ? JSON.parse(savedUpgradeCost) : [10, 100];
+    cUpgradeCost = savedCUpgradeCost ? JSON.parse(savedCUpgradeCost) : [10, 100];
+
     draw();
 }
 
@@ -190,7 +204,11 @@ function ulehcenistylu(jmeno, text) {
 function achievementdetector(){
     if (money>=1000000){
         let achievement = document.createElement("div");
-        ulehcenistylu(achievement,"Achievement unlocked - Begginer for 1 milion cookies.")
+        ulehcenistylu(achievement,"Achievement unlocked - Beginner for 1 milion cookies")
+    }
+    if (money>=1000000000){
+        let achievement = document.createElement("div");
+        ulehcenistylu(achievement,"Achievement unlocked - Skill Issue for 1 billion cookies.")
     }
 }
 
