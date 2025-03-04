@@ -12,6 +12,7 @@ let pocetUpg = [0, 0];
 let upgAFKmaking = [1, 4];
 let pocetCUpg = [0, 0];
 let upgClick = [1, 4];
+let complete=Array(9).fill(false)
 
 function deleteCookie(name) {
     document.cookie = `money=${money}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
@@ -103,11 +104,11 @@ function draw() {
     document.getElementById("Upg2").textContent = "CPS Upgrade 2: " + parseInt(upgradeCost[1]);
     document.getElementById("clickUpg1").textContent = "CPC Upgrade 1: " + parseInt(cUpgradeCost[0]);
     document.getElementById("clickUpg2").textContent = "CPC Upgrade 2: " + parseInt(cUpgradeCost[1]);
+    achievementdetector(complete)
 }
 
 function plusplus() {
-    money += click_money;
-    achievementdetector();
+    money += click_money;;
     draw();
 }
 
@@ -124,7 +125,7 @@ function calculateMPC() {
     for (let i = 0; i < pocetCUpg.length; i++) {
         moneyCLICK += pocetCUpg[i] * upgClick[i];
     }
-    return boosterActive ? moneyCLICK * 10 : moneyCLICK;
+    return boosterActive ? moneyCLICK * 10000 : moneyCLICK;
 }
 
 function AFKmoney() {
@@ -201,42 +202,51 @@ function ulehcenistylu(jmeno, text) {
     }, 2000);
 }
 
-function achievementdetector(){
-    if (money>=1000000){
+function achievementdetector(complete){
+    if (money>=1000000 && !complete[0]){
         let achievement = document.createElement("div");
         ulehcenistylu(achievement,"Achievement unlocked - U thought u did sumthin? for 1 milion cookies")
+        complete[0]=true;
     }
-    if (money>=1000000000){
+    if (money>=1000000000 && !complete[1]){
         let achievement = document.createElement("div");
         ulehcenistylu(achievement,"Achievement unlocked - Skill Issue. for 1 billion cookies")
+        complete[1]=true;
     }
-    if (money>=1000000000000){
+    if (money>=1000000000000 && !complete[2]){
         let achievement = document.createElement("div");
         ulehcenistylu(achievement,"Achievement unlocked - Skill Issue?? for 1 trillion cookies")
+        complete[2]=true;
     }
-    if (money>=1000000000000000){
+    if (money>=1000000000000000 && !complete[3]){
         let achievement = document.createElement("div");
         ulehcenistylu(achievement,"Achievement unlocked - You are getting somewhere. for 1 quadrillion cookies")
+        complete[3]=true;
     }
-    if (money>=10**18){
+    if (money>=10**18 && !complete[4]){
         let achievement = document.createElement("div");
         ulehcenistylu(achievement,"Achievement unlocked - Buky by byl pyšný!!! for 1 kvintillion cookies")
+        complete[4]=true;
     }
-    if (click_money>=10000){
+    if (click_money>=10000 && !complete[5]){
         let achievement = document.createElement("div");
         ulehcenistylu(achievement,"Achievement unlocked - U a mighty one. for 10K CPC")
+        complete[5]=true;
     }
-    if (click_money>=10000000){
+    if (click_money>=10000000 && !complete[6]){
         let achievement = document.createElement("div");
         ulehcenistylu(achievement,"Achievement unlocked - To the infinity and beyond. for 10M CPC")
+        complete[6]=true;
     }
-    if (afk_money>=10000){
+    if (afk_money>=10000 && !complete[7]){
         let achievement = document.createElement("div");
         ulehcenistylu(achievement,"Achievement unlocked - Getting sum bread? for 10K CPS")
+        complete[7]=true;
     }    
-    if (money>=1000000000){
+    if (afk_money>=1000000000 && !complete[8]){
         let achievement = document.createElement("div");
         ulehcenistylu(achievement,"Achievement unlocked - The profits are Massive. for 10M CPS")
+        complete[8]=true;
     }
 }
 
@@ -254,7 +264,7 @@ window.onload = function () {
 }
 draw();
 setInterval(moveButton, 6000);
-setInterval(AFKmoney, 1000);
+setInterval(AFKmoney, 100);
 setInterval(savegame, 60000);
 document.getElementById("Reset").addEventListener("click", resetGame);
 
