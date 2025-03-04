@@ -128,7 +128,7 @@ function calculateMPC() {
 }
 
 function AFKmoney() {
-    money += afk_money / 10;
+    money += afk_money;
     draw();
 }
 
@@ -204,11 +204,39 @@ function ulehcenistylu(jmeno, text) {
 function achievementdetector(){
     if (money>=1000000){
         let achievement = document.createElement("div");
-        ulehcenistylu(achievement,"Achievement unlocked - Beginner for 1 milion cookies")
+        ulehcenistylu(achievement,"Achievement unlocked - U thought u did sumthin? for 1 milion cookies")
     }
     if (money>=1000000000){
         let achievement = document.createElement("div");
-        ulehcenistylu(achievement,"Achievement unlocked - Skill Issue for 1 billion cookies.")
+        ulehcenistylu(achievement,"Achievement unlocked - Skill Issue. for 1 billion cookies")
+    }
+    if (money>=1000000000000){
+        let achievement = document.createElement("div");
+        ulehcenistylu(achievement,"Achievement unlocked - Skill Issue?? for 1 trillion cookies")
+    }
+    if (money>=1000000000000000){
+        let achievement = document.createElement("div");
+        ulehcenistylu(achievement,"Achievement unlocked - You are getting somewhere. for 1 quadrillion cookies")
+    }
+    if (money>=10**18){
+        let achievement = document.createElement("div");
+        ulehcenistylu(achievement,"Achievement unlocked - Buky by byl pyšný!!! for 1 kvintillion cookies")
+    }
+    if (click_money>=10000){
+        let achievement = document.createElement("div");
+        ulehcenistylu(achievement,"Achievement unlocked - U a mighty one. for 10K CPC")
+    }
+    if (click_money>=10000000){
+        let achievement = document.createElement("div");
+        ulehcenistylu(achievement,"Achievement unlocked - To the infinity and beyond. for 10M CPC")
+    }
+    if (afk_money>=10000){
+        let achievement = document.createElement("div");
+        ulehcenistylu(achievement,"Achievement unlocked - Getting sum bread? for 10K CPS")
+    }    
+    if (money>=1000000000){
+        let achievement = document.createElement("div");
+        ulehcenistylu(achievement,"Achievement unlocked - The profits are Massive. for 10M CPS")
     }
 }
 
@@ -226,7 +254,7 @@ window.onload = function () {
 }
 draw();
 setInterval(moveButton, 6000);
-setInterval(AFKmoney, 100);
+setInterval(AFKmoney, 1000);
 setInterval(savegame, 60000);
 document.getElementById("Reset").addEventListener("click", resetGame);
 
