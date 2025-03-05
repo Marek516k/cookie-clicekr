@@ -13,7 +13,9 @@ body{
 }
 
 .container{
-    max-width: 700px;
+    max-width: 1000px;
+    max-height: 700px;
+    height: 100%;
     width: 100%;
     padding: 30px;
     background-color: white;
@@ -96,4 +98,32 @@ button:active {
     cursor: pointer;
     padding: 10px 10px;
     font-size: 16px;
+}
+#achievements-panel {
+    position: fixed;
+    left: 10px;
+    top: 50px;
+    width: 280px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+}
+
+.achievement {
+    margin: 5px 0;
+    padding: 10px;
+    border-left: 5px solid gray;
+    border-radius: 5px;
+    background: #444;
+    color: #777; /* Grey text for locked achievements */
+    transition: all 0.5s;
+}
+
+.achievement.unlocked {
+    background: #222;
+    border-left-color: gold;
+    color: white;
+    font-weight: bold;
 }

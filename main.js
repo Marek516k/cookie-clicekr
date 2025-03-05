@@ -202,52 +202,42 @@ function ulehcenistylu(jmeno, text) {
     }, 2000);
 }
 
-function achievementdetector(complete){
-    if (money>=1000000 && !complete[0]){
-        let achievement = document.createElement("div");
-        ulehcenistylu(achievement,"Achievement unlocked - U thought u did sumthin? for 1 milion cookies")
-        complete[0]=true;
+function achievementdetector(complete) {
+    let panel = document.getElementById("achievements-panel");
+
+    let achievements = [
+        { text: "U thought u did sumthin? for 1 million cookies", condition: () => money >= 1000000 },
+        { text: "Skill Issue. for 1 billion cookies", condition: () => money >= 1000000000 },
+        { text: "Skill Issue?? for 1 trillion cookies", condition: () => money >= 1000_000000000 },
+        { text: "You are getting somewhere. for 1 quadrillion cookies", condition: () => money >= 1000000000000000 },
+        { text: "Buky by byl pyšný!!! for 1 quintillion cookies", condition: () => money >= 10**18 },
+        { text: "U a mighty one. for 10K CPC", condition: () => click_money >= 10000 },
+        { text: "To the infinity and beyond. for 10M CPC", condition: () => click_money >= 10000000 },
+        { text: "Getting sum bread? for 10K CPS", condition: () => afk_money >= 10000 },
+        { text: "The profits are Massive. for 10M CPS", condition: () => afk_money >= 1000000000 }
+    ];
+
+    // If it's the first time running, generate the achievement list
+    if (panel.children.length === 0) {
+        achievements.forEach((ach, i) => {
+            let div = document.createElement("div");
+            div.className = "achievement";
+            div.innerText = ach.text;
+            panel.appendChild(div);
+        });
     }
-    if (money>=1000000000 && !complete[1]){
-        let achievement = document.createElement("div");
-        ulehcenistylu(achievement,"Achievement unlocked - Skill Issue. for 1 billion cookies")
-        complete[1]=true;
-    }
-    if (money>=1000000000000 && !complete[2]){
-        let achievement = document.createElement("div");
-        ulehcenistylu(achievement,"Achievement unlocked - Skill Issue?? for 1 trillion cookies")
-        complete[2]=true;
-    }
-    if (money>=1000000000000000 && !complete[3]){
-        let achievement = document.createElement("div");
-        ulehcenistylu(achievement,"Achievement unlocked - You are getting somewhere. for 1 quadrillion cookies")
-        complete[3]=true;
-    }
-    if (money>=10**18 && !complete[4]){
-        let achievement = document.createElement("div");
-        ulehcenistylu(achievement,"Achievement unlocked - Buky by byl pyšný!!! for 1 kvintillion cookies")
-        complete[4]=true;
-    }
-    if (click_money>=10000 && !complete[5]){
-        let achievement = document.createElement("div");
-        ulehcenistylu(achievement,"Achievement unlocked - U a mighty one. for 10K CPC")
-        complete[5]=true;
-    }
-    if (click_money>=10000000 && !complete[6]){
-        let achievement = document.createElement("div");
-        ulehcenistylu(achievement,"Achievement unlocked - To the infinity and beyond. for 10M CPC")
-        complete[6]=true;
-    }
-    if (afk_money>=10000 && !complete[7]){
-        let achievement = document.createElement("div");
-        ulehcenistylu(achievement,"Achievement unlocked - Getting sum bread? for 10K CPS")
-        complete[7]=true;
-    }    
-    if (afk_money>=1000000000 && !complete[8]){
-        let achievement = document.createElement("div");
-        ulehcenistylu(achievement,"Achievement unlocked - The profits are Massive. for 10M CPS")
-        complete[8]=true;
-    }
+
+    // Update achievements dynamically
+    achievements.forEach((ach, i) => {
+        if (ach.condition() && !complete[i]) {
+            complete[i] = true;
+        }
+
+        let div = panel.children[i];
+        if (complete[i]) {
+            div.classList.add("unlocked"); // Apply the unlocked style
+        }
+    });
 }
 
 function moveButton() {
@@ -285,4 +275,4 @@ button.addEventListener("click", function () {
         draw();
     }, 6000);
 });
-// achievementy + více upg
+//  + více upg
