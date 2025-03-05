@@ -125,7 +125,7 @@ function calculateMPC() {
     for (let i = 0; i < pocetCUpg.length; i++) {
         moneyCLICK += pocetCUpg[i] * upgClick[i];
     }
-    return boosterActive ? moneyCLICK * 10000 : moneyCLICK;
+    return boosterActive ? moneyCLICK * 10 : moneyCLICK;
 }
 
 function AFKmoney() {
@@ -178,27 +178,6 @@ function showMessage(text) {
     setTimeout(() => {
         message.style.opacity = "0";
         setTimeout(() => message.remove(), 500);
-    }, 2000);
-}
-
-function ulehcenistylu(jmeno, text) {
-    jmeno.innerText = text;
-    jmeno.style.position = "fixed";
-    jmeno.style.top = "20px";
-    jmeno.style.left = "50%";
-    jmeno.style.transform = "translateX(-50%)";
-    jmeno.style.background = "rgba(0, 0, 0, 0.8)";
-    jmeno.style.color = "white";
-    jmeno.style.padding = "10px 20px";
-    jmeno.style.borderRadius = "5px";
-    jmeno.style.zIndex = "1000";
-    jmeno.style.opacity = "1";
-    jmeno.style.transition = "opacity 1s ease-out";
-
-    document.body.appendChild(jmeno);
-    setTimeout(() => {
-        jmeno.style.opacity = "0";
-        setTimeout(() => jmeno.remove(), 500);
     }, 2000);
 }
 

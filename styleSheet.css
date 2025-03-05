@@ -117,7 +117,7 @@ button:active {
     border-left: 5px solid gray;
     border-radius: 5px;
     background: #444;
-    color: #777; /* Grey text for locked achievements */
+    color: #777;
     transition: all 0.5s;
 }
 
