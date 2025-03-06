@@ -9,9 +9,9 @@ let boosterActive = false;
 let boosterCooldown = false;
 const button = document.getElementById('randomButton');
 let pocetUpg = [0, 0];
-let upgAFKmaking = [1, 4];
+let upgAFKmaking = [1, 10];
 let pocetCUpg = [0, 0];
-let upgClick = [1, 4];
+let upgClick = [1, 10];
 let complete=Array(9).fill(false)
 
 function deleteCookie(name) {
