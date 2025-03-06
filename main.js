@@ -185,15 +185,15 @@ function achievementdetector(complete) {
     let panel = document.getElementById("achievements-panel");
 
     let achievements = [
-        { text: "U thought u did sumthin? for 1 million cookies", condition: () => money >= 1000000 },
-        { text: "Skill Issue. for 1 billion cookies", condition: () => money >= 1000000000 },
-        { text: "Skill Issue?? for 1 trillion cookies", condition: () => money >= 1000_000000000 },
-        { text: "You are getting somewhere. for 1 quadrillion cookies", condition: () => money >= 1000000000000000 },
-        { text: "Buky by byl pyšný!!! for 1 quintillion cookies", condition: () => money >= 10**18 },
+        { text: "U thought u did sumthin? for 1 million cookies", condition: () => money >= 10**6 },
+        { text: "Skill Issue. for 1 billion cookies", condition: () => money >= 10**9 },
+        { text: "Skill Issue?? for 1 trillion cookies", condition: () => money >= 10**12 },
+        { text: "You are getting somewhere. for 1 quadrillion cookies", condition: () => money >= 10**15 },
+        { text: "Buky by byl pyšný!!!!! for 1 quintillion cookies", condition: () => money >= 10**18 },
         { text: "U a mighty one. for 10K CPC", condition: () => click_money >= 10000 },
-        { text: "To the infinity and beyond. for 10M CPC", condition: () => click_money >= 10000000 },
+        { text: "To the infinity and beyond. for 10M CPC", condition: () => click_money >= 10**7 },
         { text: "Getting sum bread? for 10K CPS", condition: () => afk_money >= 10000 },
-        { text: "The profits are Massive. for 10M CPS", condition: () => afk_money >= 1000000000 }
+        { text: "The profits are Massive. for 10M CPS", condition: () => afk_money >= 10**7 }
     ];
 
     // If it's the first time running, generate the achievement list
